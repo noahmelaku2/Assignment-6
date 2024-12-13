@@ -1,6 +1,31 @@
 <script setup>
-</script>
+import { ref } from "vue";
+import { useRouter} from 'vue-router';
+import { useStore } from "../store"
 
+
+const firstName = ref("");
+const lastName = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const router = useRouter();
+const store = useStore();
+
+const handleSubmit = () => {
+  if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
+    alert("All fields are required.");
+    return;
+  }
+
+  if (password.value !== confirmPassword.value) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  alert("Form submitted successfully!");
+};
+</script>
 <template>
   <div class="hero">
     <div class="overlay">
@@ -20,7 +45,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> 
 </template>
 
 <style scoped>
