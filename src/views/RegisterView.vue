@@ -26,6 +26,7 @@ const handleSubmit = () => {
   alert("Form submitted successfully!");
 };
 </script>
+
 <template>
   <div class="hero">
     <div class="overlay">

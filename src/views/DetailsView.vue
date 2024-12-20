@@ -1,4 +1,5 @@
 <script setup>
+import { useStore } from '../store';
 import { useRoute, useRouter } from "vue-router";
 import Header from "../components/Header.vue";
 import Details from "../components/Details.vue";

@@ -1,40 +1,26 @@
-import { ref } from "vue"
-import { defineStore } from "pinia";
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
 
-export const useRegistrationStore = defineStore('registration', () => {
-  const firstName = ref('');
-  const lastName = ref('');
-  const email = ref('');
-  const password = ref('');
-  const rePassword = ref('');
-
-  const setRegistrationData = (data) => {
-    firstName.value = data.firstName;
-    lastName.value = data.lastName;
-    email.value = data.email;
-    password.value = data.password;
-  };
-
-  return {
-    firstName,
-    lastName,
-    email,
-    password,
-    setRegistrationData,
-  };
-});
 
 export const useStore = defineStore('store', () => {
-  const cart = ref(new Map());
+ const firstName = ref('');
+ const lastName = ref('');
+ const email = ref('');
+ const password = ref('');
+ const cart = ref(new Map());
 
-  function addToCart(id, movieData) {
-    cart.value.set(id, movieData);
-  }
+ const addToCart = (id, item) => {
+   const tempCart = new Map(cart.value);
+   tempCart.set(id, item);
+   cart.value = tempCart;
+ };
 
-  function removeFromCart(id) {
-    cart.value.delete(id);
-  }
 
-  return { cart, addToCart, removeFromCart,
-  };
+ const removeFromCart = (id) => {
+   const tempCart = new Map(cart.value);
+   tempCart.delete(id);
+   cart.value = tempCart;
+ };
+
+ return { firstName, lastName, email, password, cart };
 });

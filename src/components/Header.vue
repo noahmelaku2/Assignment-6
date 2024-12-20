@@ -1,15 +1,27 @@
 <script setup>
+ import { onMounted, ref } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { useStore } from '../store';
 
+  const isHomePage = ref(false);
+  const route = useRoute();
+  const userStore = useStore();
+
+  onMounted(() => {
+    if (route.path === '/') {
+      isHomePage.value = true;
+    }
+  });
 </script>
 
 <template> 
-    <div class="header"> 
-        <h1>NotFlix</h1>
-    </div>
-    <div class="buttons">
-        <RouterLink to="/register" class="button">Register</RouterLink>
-        <RouterLink to="/login" class="button">Login</RouterLink>
-    </div>
+  <div class="header"> 
+      <h1>NotFlix</h1>
+  </div>
+  <div class="buttons">
+      <RouterLink to="/register" class="button">Register</RouterLink>
+      <RouterLink to="/login" class="button">Login</RouterLink>
+  </div>
 </template>
 
 <style scoped>

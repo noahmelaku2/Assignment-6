@@ -2,11 +2,14 @@
 import axios from "axios";
 import { ref, onMounted } from 'vue';
 import { useRouter } from "vue-router";
+import { useStore } from "../store";
+
 
 const props = defineProps(["genres"]);
 const router = useRouter();
 const selectedGenre = ref(28);
 const response = ref(null);
+const store = useStore();
 
 async function getMovieByGenre() {
   response.value = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&with_genres=${selectedGenre.value}`);
