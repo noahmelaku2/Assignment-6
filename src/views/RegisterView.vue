@@ -1,52 +1,43 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter} from 'vue-router';
-import { useStore } from "../store"
+import { useRegistrationStore } from '../store';
+import { useRouter } from 'vue-router';
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 
-
-const firstName = ref("");
-const lastName = ref("");
-const email = ref("");
-const password = ref("");
-const confirmPassword = ref("");
+const store = useRegistrationStore();
 const router = useRouter();
-const store = useStore();
 
-const handleSubmit = () => {
-  if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
-    alert("All fields are required.");
-    return;
+const validateForm = (event) => {
+  if (store.password !== store.rePassword) {
+    event.preventDefault(); 
+    alert('The passwords do not match. Please check and try again.');
+  } else {
+    store.setRegistrationData({
+      firstName: store.firstName,
+      lastName: store.lastName,
+      email: store.email,
+      password: store.password,
+    });
+
+    router.push('/movies')
   }
-
-  if (password.value !== confirmPassword.value) {
-    alert("Passwords do not match.");
-    return;
-  }
-
-  alert("Form submitted successfully!");
 };
 </script>
 
 <template>
-  <div class="hero">
-    <div class="overlay">
-      <div class="navbar">
-        <h1>NotFlix</h1>
-        <a href="login" class="button login">Login</a>
-      </div>
-      <div class="form-container">
-        <h2>Create an Account</h2>
-        <form @submit.prevent="handleSubmit">
-          <input type="text" placeholder="First Name" class="input-field" required>
-          <input type="text" placeholder="Last name" class="input-field" required>
-          <input type="email" placeholder="Email" class="input-field" required>
-          <input type="password" placeholder="Password" class="input-field" required>
-          <input type="password" placeholder="Re-enter Password" class="input-field" required>
-          <button type="submit" class="button register">Register</button>
-        </form>
-      </div>
+  <Header />
+  <div class="form-container">
+    <h2>Create an Account</h2>
+      <form @submit="validateForm">
+        <input type="text" placeholder="First Name" class="input-field" v-model="store.firstName" required />
+        <input type="text" placeholder="Last Name" class="input-field" v-model="store.lastName" required />
+        <input type="email" placeholder="Email" class="input-field" v-model="store.email" required />
+        <input type="password" placeholder="Password" class="input-field" v-model="store.password" required />
+        <input type="password" placeholder="Re-Enter Password" class="input-field" v-model="store.rePassword" required />
+        <button type="submit" class="register">Register</button>
+      </form>
     </div>
-  </div> 
+    <Footer />
 </template>
 
 <style scoped>
@@ -116,11 +107,12 @@ const handleSubmit = () => {
 .form-container {
   text-align: center;
   margin-top: 60px;
+  color: #000;
 }
 
 .form-container h2 {
   font-size: 2.4rem;
-  color: #f4f4f4;
+  color: #000000;
   margin-bottom: 30px;
   font-weight: 600;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
