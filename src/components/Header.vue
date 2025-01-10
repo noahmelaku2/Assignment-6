@@ -25,7 +25,7 @@ onMounted(() => {
     </li>
     <li v-if="$route.path === '/movies'">
       <h1 class="email">{{ `Hello ${registrationStore.firstName}!` }}</h1>
-      <RouterLink to="/setting" class="button setting">Setting</RouterLink>
+      <RouterLink to="/settings" class="button setting">Setting</RouterLink>
       <RouterLink to="/" class="button setting">Logout</RouterLink>
       <RouterLink to="/cart" class="button cart">Cart</RouterLink>
       <RouterLink to="/movies" class="button setting">Movies</RouterLink>
